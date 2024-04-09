@@ -3,7 +3,8 @@ name: Docker Build and Push from Upstream Tag
 on:
   schedule:
     - cron: '0 0 * * 0'  # 每周天检查一次上游仓库（可自定义）
-
+  workflow_dispatch:
+    
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
