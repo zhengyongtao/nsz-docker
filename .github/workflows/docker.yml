@@ -65,7 +65,7 @@ jobs:
       with:
         context: .
         file: ./Dockerfile
-        platforms: linux/amd64,linux/arm64,darwin/amd64,darwin/arm64  # 根据需要调整目标架构
+        platforms: linux/amd64,linux/arm64/v8  # 根据需要调整目标架构
         push: true
         build-args: |
           UPSTREAM_TAG=${{ env.UPSTREAM_TAG }}
