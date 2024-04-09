@@ -43,6 +43,9 @@ jobs:
         echo "skip_flag=false" >> $GITHUB_OUTPUT
         echo "UPSTREAM_TAG=$latest_tag_name" >> $GITHUB_OUTPUT
       id: check_tag_exist
+    outputs:
+      skip_flag: ${{ steps.check_tag_exist.outputs.skip_flag }}
+      UPSTREAM_TAG: ${{ steps.check_tag_exist.outputs.UPSTREAM_TAG }}
 
   build-and-push:
     runs-on: ubuntu-latest
