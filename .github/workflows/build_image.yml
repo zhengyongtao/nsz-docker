@@ -1,0 +1,44 @@
+name: Docker Build and Push from Upstream Tag
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code at upstream tag
+      uses: actions/checkout@v4
+      with:
+        repository: 'zhengyongtao/nsz-docker'  # 指定仓库
+        ref: main  # 指定分支
+
+    - name: Set up QEMU
+      uses: docker/setup-qemu-action@v3
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+
+    - name: Login to Docker Hub
+      uses: docker/login-action@v3
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+    - name: Build and push Docker image
+      id: docker_build
+      uses: docker/build-push-action@v5
+      with:
+        context: .
+        file: ./Dockerfile
+        platforms: linux/amd64,linux/arm64/v8  # 根据需要调整目标架构
+        push: true
+        build-args: |
+          UPSTREAM_TAG=${{ env.UPSTREAM_TAG }}
+        tags: |
+          zhengyongtao/nsz:${{ env.UPSTREAM_TAG }}  
+          zhengyongtao/nsz:latest
+
+    - name: Image digest
+      run: echo ${{ steps.docker_build.outputs.digest }}
