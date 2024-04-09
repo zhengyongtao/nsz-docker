@@ -44,7 +44,7 @@ jobs:
     - name: Checkout code at upstream tag
       uses: actions/checkout@v4
       with:
-        repository: 'https://github.com/nicoboss/nsz'  # 指定上游仓库
+        repository: 'nicoboss/nsz'  # 指定上游仓库
         ref: ${{ env.UPSTREAM_TAG }}  # 检出上游最新 tag 对应的代码
 
     - name: Set up QEMU
