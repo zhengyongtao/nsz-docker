@@ -34,13 +34,12 @@ jobs:
 
         if [[ "$http_status" == "404" ]]; then
             echo "The tag ${tag_to_check} does not exist for the image ${image_name}."
+            echo "skip_flag=false" >> $GITHUB_OUTPUT
         else
             echo "The tag ${tag_to_check} exists for the image ${image_name}."
             echo "skip_flag=true" >> $GITHUB_OUTPUT
         fi
-        # 将 tag 名称存储为环境变量
-        # echo "UPSTREAM_TAG=$latest_tag_name" >> $GITHUB_ENV
-        echo "skip_flag=false" >> $GITHUB_OUTPUT
+        # 将 tag 名称存储到 GITHUB_OUTPUT
         echo "UPSTREAM_TAG=$latest_tag_name" >> $GITHUB_OUTPUT
       id: check_tag_exist
     outputs:
