@@ -44,8 +44,8 @@ jobs:
     - name: Checkout code at upstream tag
       uses: actions/checkout@v4
       with:
-        repository: 'zhengyongtao/nsz-docker'  # 指定上游仓库
-        ref: ${{ env.UPSTREAM_TAG }}  # 检出上游最新 tag 对应的代码
+        repository: 'zhengyongtao/nsz-docker'  # 指定仓库
+        ref: main  # 指定分支
 
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v3
