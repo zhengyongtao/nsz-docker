@@ -78,7 +78,7 @@ jobs:
         platforms: linux/amd64,linux/arm64/v8  # 根据需要调整目标架构
         push: true
         build-args: |
-          upstream_tag=${{ needs.check-if-buildable.outputs.upstream_tag }}
+          UPSTREAM_TAG=${{ needs.check-if-buildable.outputs.upstream_tag }}
         tags: |
           zhengyongtao/nsz:${{ needs.check-if-buildable.outputs.upstream_tag }}  
           zhengyongtao/nsz:latest
