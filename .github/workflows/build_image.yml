@@ -1,6 +1,7 @@
 name: Docker Build and Push from Upstream Tag
 
 on:
+  workflow_call:
   workflow_dispatch:
 
 jobs:

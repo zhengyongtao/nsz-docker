@@ -44,7 +44,7 @@ jobs:
 
     - name: Checkout code at upstream tag
       if: ${{ ! steps.check_image_exist.outputs.skip_flag }}
-      uses: ./.github/workflows/build_image
+      uses: ./.github/workflows/build_image.yml
       env:
         UPSTREAM_TAG: ${{ env.UPSTREAM_TAG }}
 
