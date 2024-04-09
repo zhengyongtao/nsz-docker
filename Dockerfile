@@ -1,6 +1,6 @@
 FROM python:3-slim-bullseye
 WORKDIR /app
-COPY . /app
-RUN pip install -r requirements.txt
+RUN apt update && apt install -y git
+RUN git clone -b ${UPSTREAM_TAG} https://github.com/nicoboss/nsz.git . && pip install -r requirements.txt
 ENTRYPOINT [ "python","nsz.py" ]
 CMD [ "--help" ]

@@ -44,7 +44,7 @@ jobs:
     - name: Checkout code at upstream tag
       uses: actions/checkout@v4
       with:
-        repository: 'nicoboss/nsz'  # 指定上游仓库
+        repository: 'zhengyongtao/nsz-docker'  # 指定上游仓库
         ref: ${{ env.UPSTREAM_TAG }}  # 检出上游最新 tag 对应的代码
 
     - name: Set up QEMU
@@ -67,6 +67,8 @@ jobs:
         file: ./Dockerfile
         platforms: linux/amd64,linux/arm64,darwin/amd64,darwin/arm64  # 根据需要调整目标架构
         push: true
+        build-args: |
+          UPSTREAM_TAG=${{ env.UPSTREAM_TAG }}
         tags: |
           zhengyongtao/nsz:${{ env.UPSTREAM_TAG }}  
           zhengyongtao/nsz:latest
