@@ -4,7 +4,7 @@ on:
   schedule:
     - cron: '0 0 * * 0'  # 每周天检查一次上游仓库（可自定义）
   workflow_dispatch:
-    
+
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
@@ -13,7 +13,7 @@ jobs:
     - name: Fetch upstream tags
       run: |
         # 获取上游仓库的最新 tags
-        upstream_tags=$(curl -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/nicoboss/nsz/tags)
+        upstream_tags=$(curl -s -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/nicoboss/nsz/tags)
 
         # 提取最新的 tag 名称
         latest_tag_name=$(echo "$upstream_tags" | jq -r '.[0].name // empty')
@@ -30,10 +30,7 @@ jobs:
         api_url="https://registry.hub.docker.com/v2/repositories/${image_name}/tags/${tag_to_check}"
 
         # 使用 curl 查询镜像 tag 的详细信息
-        response=$(curl -s -L -H "Accept: application/json" "${api_url}")
-
-        # 检查 HTTP 状态码以确定镜像 tag 是否存在
-        http_status=$(echo "$response" | jq -r '.errors[].status')
+        http_status=$(curl -s -o /dev/null -w "%{http_code}\n" "${api_url}")
 
         if [[ "$http_status" == "404" ]]; then
             echo "The tag ${tag_to_check} does not exist for the image ${image_name}."
