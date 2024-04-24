@@ -7,7 +7,7 @@ Encapsulate nsz as docker image for easy use.
 1. The nsz CLI can be executed from the Docker CLI with the `docker run` command:
 
 ```bash
- docker run --rm -v $(pwd)/switch:/root/.switch -v $(pwd)/nszfile/:/nszfile zhengyongtao/nsz -D /nszfile
+ docker run --rm -v "$(pwd)/switch:/root/.switch" -v "$(pwd)/nszfile/:/nszfile" zhengyongtao/nsz -D /nszfile
 ```
 
 The above command shows how to decompress all nsz files in a directory.
